@@ -37,7 +37,9 @@ function App() {
 
   // Sauvegarde les données dans le localStorage à chaque mise à jour des tâches
   useEffect(() => {
-    localStorage.setItem("todos", JSON.stringify(todos));
+    if (todos.length > 0 && todos.every((todo) => todo.completed)) {
+      alert("Great job! All tasks are complete!");
+    }
   }, [todos]);
 
   // Affiche le formulaire et la liste des tâches
