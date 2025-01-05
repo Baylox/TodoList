@@ -1,23 +1,25 @@
 import React, { useState } from "react";
 
-function TodoForm({ onAddTodo }) {
-  const [text, setText] = useState("");
+// Formulaire pour ajouter une tâche
+function TodoForm({ onAdd }) {
+  // Gestion de la la valeur 
+  const [input, setInput] = useState("");
 
+  // Gère la soumission du formulaire
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (text.trim()) {
-      onAddTodo(text);
-      setText("");
-    }
+    if (!input.trim()) return; // Ne pas ajouter de tâches vides
+    onAdd(input); // Appelle la fonction onAdd passée depuis App.js
+    setInput(""); // Réinitialise le champ
   };
-
+  // Affiche le formulaire
   return (
     <form onSubmit={handleSubmit}>
       <input
         type="text"
-        value={text}
-        onChange={(e) => setText(e.target.value)}
         placeholder="Add a todo"
+        value={input}
+        onChange={(e) => setInput(e.target.value)}
       />
       <button type="submit">Add</button>
     </form>
@@ -25,6 +27,7 @@ function TodoForm({ onAddTodo }) {
 }
 
 export default TodoForm;
+
 
 
 

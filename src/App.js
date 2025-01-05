@@ -1,30 +1,43 @@
 import React, { useState } from "react";
 import TodoForm from "./components/TodoForm";
 import TodoList from "./components/TodoList";
+import "./App.css";
 
 function App() {
   const [todos, setTodos] = useState([]);
-
-  // Ajouter une tâche
+  // Ajoute une nouvelle tâche à la liste
   const addTodo = (text) => {
-    const newTodo = { id: Date.now(), text };
+    const newTodo = { text, completed: false };
     setTodos([...todos, newTodo]);
   };
-
-  // Supprimer une tâche
-  const deleteTodo = (id) => {
-    setTodos(todos.filter((todo) => todo.id !== id));
+  
+  // Supprime une tâche de la liste
+  const deleteTodo = (index) => {
+    const newTodos = [...todos];
+    newTodos.splice(index, 1);
+    setTodos(newTodos);
   };
 
+  // Bascule l'état de complétion d'une tâche
+  const toggleComplete = (index) => {
+    const newTodos = [...todos];
+    newTodos[index].completed = !newTodos[index].completed;
+    setTodos(newTodos);
+  };
+
+  // Affiche le formulaire et la liste des tâches
   return (
-    <div>
+    <div className="container">
       <h1>Todo List</h1>
-      <TodoForm onAddTodo={addTodo} />
-      <TodoList todos={todos} onDelete={deleteTodo} />
+      <TodoForm onAdd={addTodo} />
+      <TodoList
+        todos={todos}
+        onDelete={deleteTodo}
+        onToggleComplete={toggleComplete}
+      />
     </div>
   );
 }
 
 export default App;
 import './App.css';
-
