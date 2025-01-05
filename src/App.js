@@ -3,6 +3,7 @@ import TodoForm from "./components/TodoForm";
 import TodoList from "./components/TodoList";
 import "./App.css";
 
+// Fonctions fléchées pour améliorer la lisibilité du code
 function App() {
   const [todos, setTodos] = useState(() => {
     // Charge les données depuis le localStorage et donc n'est plus une liste vide comme précédemment
@@ -19,11 +20,14 @@ function App() {
     
   // Supprime une tâche de la liste
   const deleteTodo = (index) => {
-    const newTodos = [...todos];
-    newTodos.splice(index, 1);
-    setTodos(newTodos);
+    const confirmDelete = window.confirm("Are you sure you want to delete this task?");
+    if (confirmDelete) {
+      const newTodos = [...todos];
+      newTodos.splice(index, 1);
+      setTodos(newTodos);
+    }
   };
-
+  
   // Bascule l'état de complétion d'une tâche
   const toggleComplete = (index) => {
     const newTodos = [...todos];
